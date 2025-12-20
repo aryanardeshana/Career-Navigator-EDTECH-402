@@ -1,213 +1,99 @@
-# AI Career Navigator: From Resume to Real Employment
+# AI Career Navigator
 
 **SDG 4 – Quality Education | SDG 8 – Decent Work & Economic Growth**
 
----
-
-## 1. Problem Statement
-
-Despite increasing access to education, millions of students and early-career professionals remain unemployed or underemployed due to a lack of:
-
-- Clear understanding of industry-aligned skills  
-- Personalized guidance on what to learn next  
-- Awareness of real job opportunities matching their profile  
-- Confidence to choose a career path without data-backed insights  
-
-**Key Challenges:**
-
-- Traditional career guidance is generic and inaccessible  
-- Resume screening systems (ATS) silently reject candidates  
-- Learning platforms follow a one-size-fits-all approach  
-- Students cannot visualize career growth or salary outcomes  
-- Job search platforms overwhelm users with irrelevant listings  
-
-This gap disproportionately affects students from underprivileged and non-elite backgrounds, directly impacting educational equity and employability, making this a critical **SDG 4 & SDG 8** problem.
+Intentional career development rarely happens by accident. We designed the AI Career Navigator as an **orchestrated workflow** that takes someone from uncertainty to clarity via measurable checkpoints and human-friendly outputs.
 
 ---
 
-## 2. Proposed Solution
+## Workflow at a Glance
 
-We propose an **AI-powered Career Navigation Platform** that guides a user through their entire career lifecycle:
+1. **Capture & Analyze** – intake a resume or raw profile, parse every section with AI, and compute an ATS readiness score.
+2. **Generate & Optimize** – author a resume from scratch or polish the existing one with targeted phrasing, impact bullets, and formatting.
+3. **Discover Skill Gaps** – compare strengths to target roles, flag missing capabilities, and prioritize learning.
+4. **Learn & Practice** – translate gaps into curated, actionable learning pathways with checkpoints for mastery.
+5. **Match & Apply** – surface role-specific openings, generate cover letters, and track application outcomes.
+6. **Simulate Growth** – visualize salary trajectories, job stability, and career progression to inform decisions.
+7. **Measure & Iterate** – monitor progress via skill acquisition, readiness scores, and behavioral insights for continuous personalization.
 
-**Resume → Skill Gap → Learning Path → Career Simulation → Job Matching → Application Support**
-
-The system acts as a personal AI career mentor, adapting to each user’s profile instead of forcing them into predefined paths.
-
----
-
-## 3. End-to-End System Pipeline
-
-### 🔹 Step 1: AI Resume Screening & ATS Evaluation
-
-- User uploads an existing resume  
-- AI performs:
-  - Full resume parsing using NLP  
-  - ATS score calculation  
-  - Detection of:
-    - Formatting issues  
-    - Keyword misalignment  
-    - Content flaws  
-    - Role mismatch  
-  - Suggestions on:
-    - Writing style  
-    - Section ordering  
-    - Skill representation  
-    - Impact-based bullet points  
-
-📌 **Output:**  
-A clear ATS score, detailed feedback, and actionable improvements.
+Each phase feeds data to the next, turning the user’s journey into a closed-loop system that adapts to changing aspirations.
 
 ---
 
-### 🔹 Step 2: AI Resume Builder (From Scratch)
+## Detailed Workflow Phases
 
-If the user doesn’t have a resume:
+### 1. Capture & Analyze
+- Upload an existing resume or import profile details.
+- AI parses sections using NLP, extracts entities via NER, and evaluates the document against ATS heuristics.
+- Outputs: ATS scorecard, formatting diagnostics, keyword alignment report.
 
-- User provides:
-  - Skills  
-  - Experience (or learning background)  
-  - Career goal via prompt  
+### 2. Generate & Optimize
+- For blank slates, the AI proposes section outlines, highlights relevant keywords, and suggests company-style language.
+- For drafts, it reorders sections, expands impact-driven bullets, and normalizes formatting for compatibility.
+- Outputs: downloadable resume draft, actionable revision checklist.
 
-- AI generates:
-  - Section-wise structured resume  
-  - ATS-optimized formatting  
-  - Industry-aligned keywords  
-  - Role-specific customization  
+### 3. Discover Skill Gaps
+- Semantic similarity compares the curated profile against live job descriptions.
+- The system ranks missing or weak skill areas and translates them into prioritized learning needs.
+- Outputs: skill gap matrix, role-targeted focus areas.
 
-📌 **Output:**  
-A job-ready, ATS-compatible resume generated step-by-step.
+### 4. Learn & Practice
+- Fetches resources from verified platforms (MOOCs, labs, documentation) or generates explanations via LLMs.
+- Structures learning into micro-quests with completion checks and optional hands-on projects.
+- Outputs: personalized learning roadmap, mastery tracker, encouragement nudges.
 
----
+### 5. Match & Apply
+- Tags the user’s expertise and searches aggregated job data (APIs, crawled datasets, partner feeds).
+- Recommends opportunities based on salary, location, remote preference, and growth potential.
+- Generates bespoke cover letters aligned to tone and role requirements.
+- Outputs: filtered job list, application templates, next-step reminders.
 
-### 🔹 Step 3: Skill Gap Detection & Personalized Learning Roadmap
+### 6. Simulate Growth
+- Uses industry datasets and historical trends to project salary growth, job stability, and progression likelihood.
+- Visualizes alternate "what-if" pathways so users can weigh trade-offs before committing.
+- Outputs: growth dashboard, confidence score, narrative summaries for mentors/advisors.
 
-AI performs semantic matching between:
-
-- User profile (skills, resume, goals)  
-- Target job descriptions  
-
-It identifies:
-
-- Missing or weak skills  
-- Priority learning areas  
-
-Then runs a personalized recommendation pipeline:
-
-- Fetches learning content from:
-  - Web sources  
-  - Curated platforms  
-
-- Or guides the user interactively using LLM-generated explanations  
-
-⚠️ **Not one-size-fits-all**  
-Each roadmap is user-specific, adaptive, and realistic for hackathon-scale implementation.
-
-📌 **Output:**
-
-- Clear skill gap list  
-- Step-by-step learning roadmap  
-- Personalized guidance per topic  
+### 7. Measure & Iterate
+- Tracks learning progress, resume revisions, job engagement, and confidence metrics.
+- Recalibrates recommendations via feedback loops (learning completed, jobs applied to, responses received).
+- Outputs: growth diary, readiness pulse, AI mentor reflections.
 
 ---
 
-### 🔹 Step 4: User Journey Tracking
+## AI-First Architecture
 
-The platform tracks:
+| Layer | Responsibility |
+|---|---|
+| **Interface** | Conversational onboarding, resume uploader, and dashboard that surfaces insights at every click. |
+| **AI Orchestration** | NLP (parsing, ATS), semantic similarity models, recommendation agents, generative builders, and predictive analytics pipelines. |
+| **Data Layer** | Profiles, job descriptions, learning content, salary datasets, user behavior signals stored securely for rapid retrieval. |
+| **Feedback Loop** | Progress signals feed retraining and personalization to keep suggestions aligned with evolving goals. |
 
-- Learning progress  
-- Skills acquired  
-- Resume improvements over time  
-- Career readiness score  
-
-This creates a feedback loop that continuously improves recommendations.
-
----
-
-### 🔹 Step 5: AI-Powered Job Search & Matching
-
-At any point (or after learning completion):
-
-- User uploads updated resume  
-- AI extracts skill and role tags using NER  
-
-System fetches:
-
-- Relevant job listings  
-- Job descriptions  
-- Salary ranges  
-- Location / remote info  
-
-This can be implemented using:
-
-- Web job data extraction  
-- Aggregated job datasets  
-- LinkedIn-style job description pipelines (conceptual)  
-
-📌 **Output:**  
-A filtered, relevant job list, not random applications.
+The platform is intentionally AI-first; no phase functions without the underlying intelligence stack.
 
 ---
 
-### 🔹 Step 6: Career Growth Simulation (Predictive Analytics)
-
-Before choosing a career path, users can see:
-
-- Salary growth trends  
-- Career progression probability  
-- Demand stability over time  
-
-Implemented using:
-
-- Career datasets  
-- Basic EDA  
-- Predictive modeling  
-
-📌 **Purpose:**  
-To build confidence and informed decision-making, especially for first-generation learners.
-
----
-
-### 🔹 Step 7: Job-Specific Cover Letter Generator
-
-For each selected job:
-
-- AI generates a customized cover letter  
-- Tailored to:
-  - Job description  
-  - Company tone  
-  - User’s background  
-
-📌 **Output:**  
-A ready-to-submit, role-specific cover letter.
-
----
-
-## 4. AI-First Architecture (Core Strength)
-
-This system cannot function without AI.
-
-**AI Techniques Used:**
-
-- NLP for resume parsing & NER  
-- Semantic similarity for skill matching  
-- Recommendation systems for learning paths  
-- Generative AI for resumes & cover letters  
-- Predictive analytics for career simulation  
-
----
-
-## 5. SDG Impact & Measurable Outcomes
+## Impact
 
 ### SDG 4 – Quality Education
-
-- Personalized learning  
-- Reduced skill mismatch  
-- Access to career guidance at scale  
+- Democratizes access to career capital regardless of background.
+- Makes learning relevant through role-aligned personalization.
+- Provides data-backed guidance for every step in the upskilling journey.
 
 ### SDG 8 – Decent Work
+- Speeds up job readiness with ATS-vetted resumes and personalized applications.
+- Connects talent to meaningful job opportunities instead of noise.
+- Visualizes economic mobility via predictive growth modeling.
 
-- Faster job readiness  
-- Better job-role alignment  
-- Improved employment outcomes  
+Success is measured in resume quality lifts, skill mastery completion, application rates, and employment outcomes.
 
+---
 
+## Getting Started
+
+1. Clone the repo, install dependencies, and spin up the UI/backend (refer to `/docs/setup.md` if available).
+2. Upload or compose a profile to initiate Phase 1.
+3. Follow the guided workflow — progress in each phase unlocks richer recommendations.
+4. Share feedback, log successes, and iterate with the “Measure & Iterate” dashboard.
+
+Need contributions? Open a PR, test AI pipelines, or help expand job-matching data sources.
