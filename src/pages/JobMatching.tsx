@@ -102,6 +102,7 @@ const JobMatching = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [resumeData, setResumeData] = useState('');
   const { toast } = useToast();
+  const { userProfile, openAIKey } = useUser();
 
   const filteredJobs = placeholderJobs.filter(job =>
     job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -133,6 +134,15 @@ const JobMatching = () => {
       return;
     }
 
+    if (!openAIKey) {
+      toast({
+        title: 'API key required',
+        description: 'Please enter your OpenAI API key in the dashboard.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     setIsGenerating(true);
     try {
       const { data, error } = await supabase.functions.invoke('generate-cover-letter', {
@@ -141,6 +151,7 @@ const JobMatching = () => {
           jobTitle: selectedJob.title,
           companyName: selectedJob.company,
           jobDescription: selectedJob.description,
+          openAIKey,
         },
       });
 
@@ -170,8 +181,6 @@ const JobMatching = () => {
     if (score >= 70) return 'text-yellow-600';
     return 'text-orange-600';
   };
-
-  const { userProfile } = useUser();
 
   return (
     <>

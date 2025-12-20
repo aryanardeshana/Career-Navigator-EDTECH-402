@@ -80,7 +80,7 @@ const ResumeScreening = () => {
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
-  const { userProfile } = useUser();
+  const { userProfile, openAIKey } = useUser();
 
   // Skill Gap Analysis states
   const [showSkillGap, setShowSkillGap] = useState(false);
@@ -152,10 +152,19 @@ const ResumeScreening = () => {
       return;
     }
 
+    if (!openAIKey) {
+      toast({
+        title: 'API key required',
+        description: 'Please enter your OpenAI API key in the dashboard.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     setIsAnalyzing(true);
     try {
       const { data, error } = await supabase.functions.invoke('analyze-resume', {
-        body: { resumeText },
+        body: { resumeText, openAIKey },
       });
 
       if (error) throw error;
@@ -201,10 +210,19 @@ const ResumeScreening = () => {
       return;
     }
 
+    if (!openAIKey) {
+      toast({
+        title: 'API key required',
+        description: 'Please enter your OpenAI API key in the dashboard.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     setIsAnalyzingSkillGap(true);
     try {
       const { data, error } = await supabase.functions.invoke('skill-gap-analysis', {
-        body: { currentSkills, targetRole },
+        body: { currentSkills, targetRole, openAIKey },
       });
 
       if (error) throw error;

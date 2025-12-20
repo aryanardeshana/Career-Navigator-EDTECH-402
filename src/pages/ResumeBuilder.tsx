@@ -73,6 +73,7 @@ const ResumeBuilder = () => {
   const [showPreview, setShowPreview] = useState(true);
   const [aiPrompt, setAiPrompt] = useState('');
   const { toast } = useToast();
+  const { userProfile, openAIKey } = useUser();
 
   const generateSection = async (section: string, userInput: string, existingContent?: string) => {
     if (!userInput.trim()) {
@@ -84,10 +85,19 @@ const ResumeBuilder = () => {
       return;
     }
 
+    if (!openAIKey) {
+      toast({
+        title: 'API key required',
+        description: 'Please enter your OpenAI API key in the dashboard.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     setIsGenerating(section);
     try {
       const { data, error } = await supabase.functions.invoke('generate-resume-section', {
-        body: { section, userInput, existingContent },
+        body: { section, userInput, existingContent, openAIKey },
       });
 
       if (error) throw error;
@@ -325,8 +335,6 @@ const ResumeBuilder = () => {
       printWindow.print();
     }
   };
-
-  const { userProfile } = useUser();
 
   return (
     <>
