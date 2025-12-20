@@ -58,6 +58,15 @@ const ResourceChat = () => {
     const text = messageText || input;
     if (!text.trim()) return;
 
+    if (!openAIKey) {
+      toast({
+        title: 'API key required',
+        description: 'Please enter your OpenAI API key in the dashboard.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     const userMessage: Message = { role: 'user', content: text };
     setMessages(prev => [...prev, userMessage]);
     setInput('');
@@ -69,6 +78,7 @@ const ResourceChat = () => {
           message: text,
           skills,
           conversationHistory: messages,
+          openAIKey,
         },
       });
 
@@ -96,7 +106,7 @@ const ResourceChat = () => {
     }
   };
 
-  const { userProfile } = useUser();
+  const { userProfile, openAIKey } = useUser();
 
   return (
     <>

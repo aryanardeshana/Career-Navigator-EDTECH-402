@@ -10,7 +10,8 @@ import {
   Upload,
   Sparkles,
   ArrowRight,
-  TrendingUp
+  TrendingUp,
+  Key
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from '@/contexts/UserContext';
@@ -18,6 +19,7 @@ import DashboardSidebar from '@/components/dashboard/DashboardSidebar';
 import DashboardNavbar from '@/components/DashboardNavbar';
 import TypewriterText from '@/components/dashboard/TypewriterText';
 import { supabase } from '@/integrations/supabase/client';
+import { Input } from '@/components/ui/input';
 
 interface DashboardStats {
   resumesCount: number;
@@ -72,7 +74,7 @@ const featureCards = [
 ];
 
 const Dashboard = () => {
-  const { userProfile, isLoading } = useUser();
+  const { userProfile, isLoading, openAIKey, setOpenAIKey } = useUser();
   const navigate = useNavigate();
   const [stats, setStats] = useState<DashboardStats>({
     resumesCount: 0,
@@ -141,6 +143,19 @@ const Dashboard = () => {
         <DashboardSidebar />
         
         <main className="ml-20 lg:ml-[280px] transition-all duration-300 pt-24 pb-12">
+          {/* API Key Input */}
+          <div className="max-w-6xl mx-auto px-6 pt-4">
+            <div className="flex items-center gap-2 max-w-xs">
+              <Key className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+              <Input
+                type="password"
+                placeholder="Enter your OpenAI API key"
+                value={openAIKey}
+                onChange={(e) => setOpenAIKey(e.target.value)}
+                className="h-8 text-xs"
+              />
+            </div>
+          </div>
           <div className="max-w-6xl mx-auto px-6 py-8">
             {/* Welcome Section */}
             <motion.div

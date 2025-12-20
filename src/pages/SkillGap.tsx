@@ -71,6 +71,7 @@ const SkillGap = () => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysis, setAnalysis] = useState<Analysis | null>(null);
   const { toast } = useToast();
+  const { userProfile, openAIKey } = useUser();
 
   const addSkill = () => {
     if (skillInput.trim() && !skills.includes(skillInput.trim())) {
@@ -102,10 +103,19 @@ const SkillGap = () => {
       return;
     }
 
+    if (!openAIKey) {
+      toast({
+        title: 'API key required',
+        description: 'Please enter your OpenAI API key in the dashboard.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     setIsAnalyzing(true);
     try {
       const { data, error } = await supabase.functions.invoke('skill-gap-analysis', {
-        body: { currentSkills: skills, targetRole },
+        body: { currentSkills: skills, targetRole, openAIKey },
       });
 
       if (error) throw error;
@@ -137,8 +147,6 @@ const SkillGap = () => {
       default: return 'bg-green-500';
     }
   };
-
-  const { userProfile } = useUser();
 
   return (
     <>

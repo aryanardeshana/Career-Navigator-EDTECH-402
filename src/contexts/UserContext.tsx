@@ -11,6 +11,8 @@ interface UserContextType {
   userProfile: UserProfile | null;
   setUserProfile: (profile: UserProfile | null) => void;
   isLoading: boolean;
+  openAIKey: string;
+  setOpenAIKey: (key: string) => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -18,10 +20,17 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [openAIKey, setOpenAIKeyState] = useState<string>('');
 
   useEffect(() => {
     // Check localStorage for existing user profile
     const storedProfileId = localStorage.getItem('user_profile_id');
+    const storedApiKey = localStorage.getItem('openai_api_key');
+    
+    if (storedApiKey) {
+      setOpenAIKeyState(storedApiKey);
+    }
+    
     if (storedProfileId) {
       fetchUserProfile(storedProfileId);
     } else {
@@ -58,8 +67,23 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const handleSetOpenAIKey = (key: string) => {
+    setOpenAIKeyState(key);
+    if (key) {
+      localStorage.setItem('openai_api_key', key);
+    } else {
+      localStorage.removeItem('openai_api_key');
+    }
+  };
+
   return (
-    <UserContext.Provider value={{ userProfile, setUserProfile: handleSetUserProfile, isLoading }}>
+    <UserContext.Provider value={{ 
+      userProfile, 
+      setUserProfile: handleSetUserProfile, 
+      isLoading,
+      openAIKey,
+      setOpenAIKey: handleSetOpenAIKey
+    }}>
       {children}
     </UserContext.Provider>
   );
