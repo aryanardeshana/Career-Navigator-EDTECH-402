@@ -1,24 +1,253 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Career Navigator - From Resume to Real Employment</title>
-    <meta name="description" content="Your personal AI mentor guiding you from resume creation to job success. Get ATS-optimized resumes, skill gap analysis, and personalized career paths." />
-    <meta name="author" content="AI Career Navigator" />
 
-    <meta property="og:title" content="AI Career Navigator - Transform Your Career with AI" />
-    <meta property="og:description" content="AI-powered resume optimization, skill gap analysis, and intelligent job matching." />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Career Navigator - From Resume to Real Employment</title>
+  <meta name="description"
+    content="Your personal AI mentor guiding you from resume creation to job success. Get ATS-optimized resumes, skill gap analysis, and personalized career paths." />
+  <meta name="author" content="AI Career Navigator" />
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@AICareerNav" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
+  <meta property="og:title" content="AI Career Navigator - Transform Your Career with AI" />
+  <meta property="og:description"
+    content="AI-powered resume optimization, skill gap analysis, and intelligent job matching." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@AICareerNav" />
+  <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+
+  <style>
+    #initial-loader {
+      min-height: 100vh;
+      background: #ffffff;
+      overflow: hidden;
+      animation: loaderPulse 1.5s ease-in-out infinite;
+    }
+
+    .loader-navbar {
+      height: 64px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .loader-logo {
+      width: 160px;
+      height: 32px;
+      border-radius: 6px;
+      background: #e5e7eb;
+    }
+
+    .loader-nav {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .loader-nav div {
+      width: 64px;
+      height: 16px;
+      border-radius: 4px;
+      background: #e5e7eb;
+    }
+
+    .loader-nav .loader-button {
+      width: 96px;
+      height: 36px;
+      border-radius: 6px;
+    }
+
+    .loader-hero {
+      max-width: 1200px;
+      margin: auto;
+      padding: 80px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .loader-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .loader-small {
+      width: 128px;
+      height: 20px;
+      border-radius: 4px;
+      background: #e5e7eb;
+    }
+
+    .loader-title {
+      width: 100%;
+      max-width: 560px;
+      height: 48px;
+      border-radius: 6px;
+      background: #e5e7eb;
+    }
+
+    .loader-title-short {
+      width: 80%;
+    }
+
+    .loader-text {
+      width: 100%;
+      max-width: 520px;
+      height: 20px;
+      border-radius: 4px;
+      background: #e5e7eb;
+    }
+
+    .loader-text-short {
+      width: 70%;
+    }
+
+    .loader-actions {
+      display: flex;
+      gap: 16px;
+      padding-top: 16px;
+    }
+
+    .loader-actions div {
+      width: 144px;
+      height: 44px;
+      border-radius: 6px;
+      background: #e5e7eb;
+    }
+
+    .loader-actions div:last-child {
+      width: 112px;
+    }
+
+    .loader-image {
+      height: 380px;
+      border-radius: 16px;
+      background: #e5e7eb;
+    }
+
+    .loader-section {
+      max-width: 1200px;
+      margin: auto;
+      padding: 64px 24px;
+    }
+
+    .loader-heading {
+      width: 260px;
+      height: 32px;
+      margin: 0 auto 20px;
+      border-radius: 6px;
+      background: #e5e7eb;
+    }
+
+    .loader-description {
+      width: 380px;
+      max-width: 100%;
+      height: 20px;
+      margin: 0 auto 32px;
+      border-radius: 4px;
+      background: #e5e7eb;
+    }
+
+    .loader-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .loader-cards div {
+      height: 192px;
+      border-radius: 12px;
+      background: #e5e7eb;
+    }
+
+    @keyframes loaderPulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.55;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .loader-nav {
+        display: none;
+      }
+
+      .loader-hero {
+        grid-template-columns: 1fr;
+        padding: 48px 20px;
+      }
+
+      .loader-image {
+        height: 280px;
+      }
+
+      .loader-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
 
   <body>
+    <div id="initial-loader">
+      <div class="loader-navbar">
+        <div class="loader-logo"></div>
+
+        <div class="loader-nav">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div class="loader-button"></div>
+        </div>
+      </div>
+
+      <div class="loader-hero">
+        <div class="loader-content">
+          <div class="loader-small"></div>
+          <div class="loader-title"></div>
+          <div class="loader-title loader-title-short"></div>
+          <div class="loader-text"></div>
+          <div class="loader-text loader-text-short"></div>
+
+          <div class="loader-actions">
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+
+        <div class="loader-image"></div>
+      </div>
+
+      <div class="loader-section">
+        <div class="loader-heading"></div>
+        <div class="loader-description"></div>
+
+        <div class="loader-cards">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+
     <div id="root"></div>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
+</body>
+
 </html>

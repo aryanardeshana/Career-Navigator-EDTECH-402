@@ -52,7 +52,7 @@ const HeroSection = () => {
 
             {/* Subheading */}
             <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 mb-8">
-              Your personal AI mentor guiding you from resume creation to job success. 
+              Your personal AI mentor guiding you from resume creation to job success.
               Get ATS-optimized resumes, skill gap analysis, and personalized career paths.
             </p>
 
@@ -68,7 +68,7 @@ const HeroSection = () => {
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </motion.div>
-              
+
               <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <button
                   onClick={handleGetStarted}
@@ -119,20 +119,28 @@ const HeroSection = () => {
                       <Target className="w-7 h-7 text-primary-foreground" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-semibold text-primary mb-2">Smart ATS Analysis</h3>
+                      <h2 className="text-xl font-semibold text-primary mb-2">
+                        Smart ATS Analysis
+                      </h2>
                       <p className="text-muted-foreground">
-                        AI-powered resume screening that evaluates your resume against ATS criteria 
+                        AI-powered resume screening that evaluates your resume against ATS criteria
                         and provides actionable improvement suggestions.
                       </p>
                     </div>
                   </div>
-                  
+
                   {/* Score Preview */}
-                  <div className="mt-6 p-4 bg-muted/50 rounded-xl">
+                  <div className="mt-6 p-4 bg-muted rounded-xl">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium text-foreground">ATS Compatibility Score</span>
-                      <span className="text-lg font-bold text-secondary">87%</span>
+                      <span className="text-sm font-medium text-foreground">
+                        ATS Compatibility Score
+                      </span>
+
+                      <span className="text-lg font-bold text-primary">
+                        87%
+                      </span>
                     </div>
+
                     <div className="h-2 bg-muted rounded-full overflow-hidden">
                       <motion.div
                         initial={{ width: 0 }}
@@ -155,7 +163,9 @@ const HeroSection = () => {
                     <div className="w-12 h-12 rounded-xl bg-sky-pale flex items-center justify-center mb-4">
                       <Route className="w-6 h-6 text-secondary" />
                     </div>
-                    <h4 className="font-semibold text-primary mb-1">Skill Gap Analysis</h4>
+                    <h3 className="font-semibold text-primary mb-1">
+                      Job Matching
+                    </h3>
                     <p className="text-sm text-muted-foreground">Identify missing skills and get personalized learning paths</p>
                   </motion.div>
                 </Link>

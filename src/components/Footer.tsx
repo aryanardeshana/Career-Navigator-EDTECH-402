@@ -16,14 +16,14 @@ const Footer = () => {
               </span>
             </a>
             <p className="text-primary-foreground/70 max-w-md">
-              Your personal AI mentor guiding you from resume creation to job success. 
+              Your personal AI mentor guiding you from resume creation to job success.
               Transform your career with intelligent insights.
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold mb-4">Quick Links</h4>
+            <h2 className="font-semibold mb-4">Quick Links</h2>
             <ul className="space-y-2">
               {['Home', 'Features', 'Career Journey', 'Get Started'].map((link) => (
                 <li key={link}>
@@ -40,20 +40,25 @@ const Footer = () => {
 
           {/* Connect */}
           <div>
-            <h4 className="font-semibold mb-4">Connect</h4>
+            <h2 className="font-semibold mb-4">Connect</h2>
+
             <div className="flex gap-4">
               {[
-                { icon: Linkedin, href: '#' },
-                { icon: Twitter, href: '#' },
-                { icon: Github, href: '#' },
-                { icon: Mail, href: '#' },
-              ].map((social, index) => (
+                { icon: Linkedin, href: '#', label: 'LinkedIn' },
+                { icon: Twitter, href: '#', label: 'Twitter' },
+                { icon: Github, href: '#', label: 'GitHub' },
+                { icon: Mail, href: '#', label: 'Email' },
+              ].map((social) => (
                 <a
-                  key={index}
+                  key={social.label}
                   href={social.href}
+                  aria-label={social.label}
                   className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all"
                 >
-                  <social.icon className="w-5 h-5" />
+                  <social.icon
+                    className="w-5 h-5"
+                    aria-hidden="true"
+                  />
                 </a>
               ))}
             </div>

@@ -23,7 +23,7 @@ const LandingNavbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
-      
+
       // Update active section based on scroll position
       const sections = ['hero', 'features', 'journey', 'about'];
       for (const section of sections.reverse()) {
@@ -64,9 +64,8 @@ const LandingNavbar = () => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'glass-navbar' : 'bg-transparent'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'glass-navbar' : 'bg-transparent'
+          }`}
       >
         <div className="container-custom">
           <div className="flex items-center justify-between h-20">
@@ -75,8 +74,9 @@ const LandingNavbar = () => {
               <div className="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center">
                 <Sparkles className="w-5 h-5 text-primary-foreground" />
               </div>
+
               <span className="font-bold text-xl text-primary">
-                AI Career<span className="text-secondary">Nav</span>
+                AI Career<span className="text-primary">Nav</span>
               </span>
             </Link>
 
@@ -86,14 +86,12 @@ const LandingNavbar = () => {
                 <button
                   key={link.name}
                   onClick={() => scrollToSection(link.href)}
-                  className={`relative text-foreground/80 font-medium hover:text-primary transition-colors duration-300 group ${
-                    activeSection === link.href.replace('#', '') ? 'text-primary' : ''
-                  }`}
+                  className={`relative text-foreground/80 font-medium hover:text-primary transition-colors duration-300 group ${activeSection === link.href.replace('#', '') ? 'text-primary' : ''
+                    }`}
                 >
                   {link.name}
-                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-secondary transition-all duration-300 ${
-                    activeSection === link.href.replace('#', '') ? 'w-full' : 'w-0 group-hover:w-full'
-                  }`} />
+                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-secondary transition-all duration-300 ${activeSection === link.href.replace('#', '') ? 'w-full' : 'w-0 group-hover:w-full'
+                    }`} />
                 </button>
               ))}
             </div>
@@ -108,10 +106,17 @@ const LandingNavbar = () => {
 
             {/* Mobile Menu Button */}
             <button
+              type="button"
+              aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={isMobileMenuOpen}
               className="md:hidden p-2 text-primary"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6" aria-hidden="true" />
+              ) : (
+                <Menu className="w-6 h-6" aria-hidden="true" />
+              )}
             </button>
           </div>
         </div>
@@ -129,9 +134,8 @@ const LandingNavbar = () => {
                 <button
                   key={link.name}
                   onClick={() => scrollToSection(link.href)}
-                  className={`font-medium py-2 transition-colors text-left ${
-                    activeSection === link.href.replace('#', '') ? 'text-primary' : 'text-foreground/80 hover:text-primary'
-                  }`}
+                  className={`font-medium py-2 transition-colors text-left ${activeSection === link.href.replace('#', '') ? 'text-primary' : 'text-foreground/80 hover:text-primary'
+                    }`}
                 >
                   {link.name}
                 </button>
@@ -143,7 +147,7 @@ const LandingNavbar = () => {
           </motion.div>
         )}
       </motion.nav>
-      
+
       <GetStartedModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
