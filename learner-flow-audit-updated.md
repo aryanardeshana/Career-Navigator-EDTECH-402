@@ -6,7 +6,7 @@
 
 **Issue:**  
 
-The user profile is not created when clicking "Start Your Journey."((()))
+The user profile is not created when clicking "Start Your Journey."
 
 **Actual Result:**  
 
