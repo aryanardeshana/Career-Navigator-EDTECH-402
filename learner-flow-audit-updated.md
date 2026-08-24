@@ -66,7 +66,7 @@ Accessibility audit of the modified landing page using Chrome Lighthouse.
 
 - Lighthouse Accessibility score improved from **84 to 100**.
 - Previously detected accessibility issues were resolved.
-- The modified landing page achieved a **100 Accessibility score** in the final Lighthouse audi.
+- The modified landing page achieved a **100 Accessibility score** in the final Lighthouse audit.
 
 **Status: COMPLETED**
 
