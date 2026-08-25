@@ -1,4 +1,7 @@
 import { useState, useCallback, useRef } from 'react';
+import * as pdfjsLib from 'pdfjs-dist';
+import pdfWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorker;
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { Upload, FileText, AlertCircle, CheckCircle2, XCircle, Loader2, ArrowLeft, Lightbulb, File, Target, ChevronRight } from 'lucide-react';
@@ -101,12 +104,52 @@ const ResumeScreening = () => {
     } else if (file.type === 'application/pdf') {
       setUploadedFileName(file.name);
       setIsParsing(true);
-      toast({
-        title: 'PDF uploaded',
-        description: 'For best results, please also paste your resume text in the text area below.',
-      });
-      setResumeText(`[PDF uploaded: ${file.name}]\n\nTo analyze your resume, please copy and paste the text content from your PDF below.`);
-      setIsParsing(false);
+
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+
+        const pdf = await pdfjsLib.getDocument({
+          data: arrayBuffer,
+        }).promise;
+
+        let extractedText = '';
+
+        for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+          const page = await pdf.getPage(pageNumber);
+          const textContent = await page.getTextContent();
+
+          const pageText = textContent.items
+            .map((item) => ('str' in item ? item.str : ''))
+            .join(' ');
+
+          extractedText += pageText + '\n\n';
+        }
+
+        extractedText = extractedText.trim();
+
+        if (!extractedText) {
+          throw new Error('No text could be extracted from this PDF.');
+        }
+
+        setResumeText(extractedText);
+
+        toast({
+          title: 'PDF parsed successfully',
+          description: 'Resume text has been extracted automatically.',
+        });
+      } catch (error) {
+        console.error('PDF parsing error:', error);
+
+        setResumeText('');
+
+        toast({
+          title: 'PDF parsing failed',
+          description: 'Could not extract text from this PDF. Please paste the resume text manually.',
+          variant: 'destructive',
+        });
+      } finally {
+        setIsParsing(false);
+      }
     } else {
       toast({
         title: 'File format not supported',
@@ -143,7 +186,7 @@ const ResumeScreening = () => {
   }, [handleFileUpload]);
 
   const analyzeResume = async () => {
-    if (!resumeText.trim() || resumeText.includes('[PDF uploaded:')) {
+    if (!resumeText.trim()) {
       toast({
         title: 'Resume text required',
         description: 'Please paste your resume content in the text area to analyze.',
@@ -200,7 +243,7 @@ const ResumeScreening = () => {
     }
 
     const currentSkills = analysis?.extractedSkills || analysis?.keywords?.found || [];
-    
+
     if (currentSkills.length === 0) {
       toast({
         title: 'No skills found',
@@ -299,11 +342,10 @@ const ResumeScreening = () => {
                     onDragLeave={handleDragLeave}
                     onDrop={handleDrop}
                     onClick={() => fileInputRef.current?.click()}
-                    className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all duration-200 ${
-                      isDragging 
-                        ? 'border-primary bg-primary/5' 
-                        : 'border-border hover:border-primary/50 hover:bg-muted/30'
-                    }`}
+                    className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all duration-200 ${isDragging
+                      ? 'border-primary bg-primary/5'
+                      : 'border-border hover:border-primary/50 hover:bg-muted/30'
+                      }`}
                   >
                     <input
                       ref={fileInputRef}
@@ -313,9 +355,8 @@ const ResumeScreening = () => {
                       className="hidden"
                     />
                     <div className="flex flex-col items-center gap-3">
-                      <div className={`w-16 h-16 rounded-full flex items-center justify-center transition-colors ${
-                        isDragging ? 'bg-primary/20' : isParsing ? 'bg-secondary/20' : 'bg-muted'
-                      }`}>
+                      <div className={`w-16 h-16 rounded-full flex items-center justify-center transition-colors ${isDragging ? 'bg-primary/20' : isParsing ? 'bg-secondary/20' : 'bg-muted'
+                        }`}>
                         {isParsing ? (
                           <Loader2 className="w-8 h-8 text-secondary animate-spin" />
                         ) : (
@@ -645,7 +686,7 @@ const ResumeScreening = () => {
                           </div>
                         </div>
                         <Progress value={section.score * 10} className={`h-2 mb-3 ${getScoreBg(section.score * 10)}`} />
-                        
+
                         {section.content && (
                           <p className="text-sm text-muted-foreground mb-3">{section.content}</p>
                         )}

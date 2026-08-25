@@ -38,7 +38,7 @@ Accessibility audit of the modified landing page using Chrome Lighthouse.
 1. Added `aria-label` and `aria-expanded` to the mobile navigation menu button.
 2. Added `aria-label` to social media icon links in `Footer.tsx`.
 3. Fixed heading hierarchy in `HeroSection.tsx` and `Footer.tsx`.
-4. Fixed insufficient text/background contrast in `LandingNavbar.tsx` and `HeroSection.tsx`.
+4. Fixed insufficient text/background contrast in `LandingNavbar.tsx` and `HeroSection.tsx`.x
 
 ---
 
@@ -250,6 +250,175 @@ Unit testing setup was added for the Student Career Quiz component.
 
 ---
 
+# TICKET #2 – RAG FOR CV ANALYSIS
+
+---
+
+### Feature Request
+
+**Issue #2:** Implement RAG for CV Analysis to replace manual text pasting.
+
+### Audit Scope
+
+Resume screening PDF upload and resume text extraction flow.
+
+---
+
+## BEFORE
+
+**Resume PDF Upload: Manual Text Pasting Required**
+
+### Issues Found
+
+1. Resume PDF could be uploaded, but the resume text was not automatically extracted.
+
+2. The user had to manually copy the resume text from the PDF.
+
+3. The user then had to paste the copied text into the Resume Content field.
+
+4. This created an unnecessary manual step before starting resume analysis.
+
+### Before Flow
+
+PDF Upload
+    ↓
+PDF uploaded
+    ↓
+User manually copies resume text from PDF
+    ↓
+User pastes resume text into Resume Content
+    ↓
+Analyze Resume
+
+---
+
+### BEFORE Evidence
+
+![PDF Parsing Before](./screenshots/ticket2-pdf-parsing-before.png)
+
+## FIXES APPLIED
+
+1. Added `pdfjs-dist` for client-side PDF text extraction.
+
+2. Configured the PDF.js worker using `GlobalWorkerOptions.workerSrc`.
+
+3. Updated `ResumeScreening.tsx` to automatically parse uploaded PDF files.
+
+4. Added page-by-page PDF text extraction.
+
+5. Combined the extracted text from the PDF pages.
+
+6. Automatically populated the extracted resume text into the Resume Content field.
+
+7. Added successful PDF parsing feedback.
+
+8. Added PDF parsing error handling.
+
+9. Removed the manual resume text copy-paste requirement.
+
+---
+
+## FILES MODIFIED
+
+- `src/pages/ResumeScreening.tsx`
+- `package.json`
+- `package-lock.json`
+
+### `src/pages/ResumeScreening.tsx`
+
+Updated the PDF upload and parsing logic to:
+
+- Load uploaded PDF files using PDF.js.
+- Configure the PDF.js worker.
+- Extract text from PDF pages.
+- Store the extracted resume text.
+- Automatically populate the Resume Content field.
+- Display parsing success and error feedback.
+
+### `package.json`
+
+Added the `pdfjs-dist` dependency required for PDF text extraction.
+
+### `package-lock.json`
+
+Updated automatically after installing the `pdfjs-dist` dependency.
+
+---
+
+## AFTER
+
+**Resume PDF Upload: Automatic Text Extraction**
+
+### Updated Flow
+
+PDF Upload
+    ↓
+PDF.js loads PDF
+    ↓
+Text extracted automatically
+    ↓
+Extracted Resume Text
+    ↓
+Resume Content populated automatically
+    ↓
+Analyze Resume
+
+### After Result
+
+After uploading the resume PDF:
+
+- PDF parsing completed successfully.
+- Resume text was extracted automatically.
+- Extracted resume content appeared in the Resume Content field.
+- Manual copy-paste was no longer required.
+- The PDF.js worker configuration issue was resolved.
+
+### After Evidence
+
+![PDF Parsing After – Resume Text Extracted](./screenshots/ticket2-pdf-parsing-after.png)
+
+---
+
+## VERIFICATION
+
+The updated PDF upload flow was tested using a resume PDF.
+
+### Test Steps
+
+1. Opened the Resume Screening page.
+2. Uploaded `Resume.pdf`.
+3. Verified that the PDF was accepted successfully.
+4. Verified that PDF.js processed the uploaded PDF.
+5. Verified that resume text was extracted automatically.
+6. Verified that extracted text appeared in the Resume Content field.
+7. Verified the successful PDF parsing message.
+8. Verified that the PDF.js worker error was resolved.
+
+### Test Result
+
+**PDF parsed successfully.**
+
+**Resume text has been extracted automatically.**
+
+The extracted resume content was displayed successfully in the Resume Content field.
+
+---
+
+## RESULT
+
+- PDF upload works successfully.
+- PDF text is extracted automatically.
+- Resume Content is populated automatically.
+- Manual resume text copy-paste has been removed.
+- PDF.js worker configuration issue has been resolved.
+- PDF parsing was successfully verified.
+
+**PDF Extraction Result: SUCCESS**
+
+**Status: COMPLETED**
+
+---
+
 # PR EVIDENCE
 
 Before/After visual evidence has been captured for the accessibility audit.
@@ -305,6 +474,16 @@ No student names, emails, phone numbers, or other personal identifiers were expo
 
 ![Student Privacy Check](./screenshots/day3-privacy-console-logs.png)
 
+### Ticket #2 – RAG for CV Analysis
+
+### Before
+
+![Ticket #2 Before – PDF Parsing](./screenshots/ticket2-pdf-parsing-before.png)
+
+### After
+
+![Ticket #2 After – Resume Text Extracted](./screenshots/ticket2-pdf-parsing-after.png)
+
 ## Evidence File Structure
 
 Keep the Markdown report and screenshots in the following structure:
@@ -322,7 +501,9 @@ screenshots/
 ├── day3-slow3g-before-skeleton.png
 ├── day3-slow3g-after-skeleton.png
 ├── day3-privacy-console-logs.png
-└── quiz-unit-testing.png
+├── quiz-unit-testing.png
+├── ticket2-pdf-parsing-before.png
+└── ticket2-pdf-parsing-after.png
 
 ```
 
